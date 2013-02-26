@@ -121,8 +121,8 @@ class EmployeeInfo
 		else
 			info = $employee_info[employee_id.to_i]
 			gross = info[:salary] / 26
-			net = info[:salary] * info[:tax_rate] / 2600
-			tax = gross - net
+			tax = info[:salary] * info[:tax_rate] / 2600
+			net = gross - tax
 			info[:paycheck] << DateTime.now.strftime('%Y/%m/%d')
 			info[:paycheck] << number_to_currency(gross, precision: 2)
 			info[:paycheck] << number_to_currency(net, precision: 2)
@@ -133,6 +133,20 @@ class EmployeeInfo
 
 	# create a method to view earnings report for indiv employee
 	def earnings
+			puts "Enter Employee ID to view associated earnings: "
+			employee_id = get_user_input
+		if employee_id.to_i == 0
+			puts "Please enter an integer for the ID."
+			earnings
+		elsif !$employee_info[employee_id.to_i]
+			puts "Employee ID not found."
+			earnings
+		else 
+			info = $employee_info[employee_id.to_i]
+			puts info[:first_name] + " " + info[:last_name] + ": " + number_to_currency(info[:salary], precision: 0) + " - " + number_to_percentage(info[:tax_rate], strip_insignificant_zeros: true)
+		 	puts info[:paycheck][0] + ": " + info[:paycheck][1] + " gross; " + info[:paycheck][2] + " net; " + info[:paycheck][3] + " taxes."
+		 	puts "Total (net): " + info[:paycheck][1]
+		end
 	end
 
 end

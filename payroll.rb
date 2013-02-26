@@ -24,31 +24,34 @@ class Payroll
 			prompt
 			option = get_user_input
 			
-			if option == "1"
+			case option.downcase
+			when "1"
 				@@employeeinfo.add 
 				puts ""
 				puts ""
 				@@prompts.decision_prompt
-			elsif option == "2"
+			when "2"
 				@@employeeinfo.remove 
 				puts ""
 				puts ""
 				@@prompts.decision_prompt
-			elsif option == "3"
+			when "3"
 				@@employeeinfo.print_info
 				puts ""
 				puts ""
 				@@prompts.decision_prompt
-			elsif option == "4"
-				@@employeeinfo.paycheck
+			when "4"
+				@@employeeinfo.process_paycheck
 				puts ""
 				puts ""
 				@@prompts.decision_prompt
-			elsif option == "5"
+			when "5"
 				@@employeeinfo.earnings
 				puts ""
 				puts ""
 				@@prompts.decision_prompt
+			when "6"
+				@@prompts.exit
 			else 
 				puts "Please select an option from the list."
 			end 
